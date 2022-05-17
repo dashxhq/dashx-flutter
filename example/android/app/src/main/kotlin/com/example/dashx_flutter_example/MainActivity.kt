@@ -1,4 +1,4 @@
-package com.example.dashx_flutter_example
+package com.dashx.demo_example
 
 import io.flutter.embedding.android.FlutterActivity
 
