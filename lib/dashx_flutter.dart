@@ -20,7 +20,7 @@ class DashX {
   }
 
   Future<void> identify() async {
-    print('inside identify');
+    print(baseUri);
   }
 
   Future<void> update() async {}

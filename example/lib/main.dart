@@ -1,10 +1,10 @@
+import 'package:dashx_flutter/dashx_flutter.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:dashx_flutter/dashx_flutter.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -16,8 +16,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _dashxFlutterPlugin = DashxFlutter();
+  String message = 'Unknown';
+  DashXPlugin dashxFlutterPlugin = DashXPlugin();
+  DashX dx = DashX(
+    publicKey: '',
+    baseUri: '',
+    targetEnvironment: '',
+  );
 
   @override
   void initState() {
@@ -27,14 +32,13 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
+    dashxFlutterPlugin;
     try {
-      platformVersion = await _dashxFlutterPlugin.getPlatformVersion() ??
-          'Unknown platform version';
+      debugPrint('here in _dashxFlutterPlugin app call');
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      message = 'Failed to get platform version.';
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -42,20 +46,29 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(child: Text('Running on: $_platformVersion\n')),
+        home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
       ),
-    );
+      body: Center(
+          child: Column(
+        children: [
+          TextButton(
+              onPressed: () {
+                dx.identify();
+              },
+              child: const Text("Register ")),
+          TextButton(onPressed: () {}, child: const Text("Update Profile ")),
+          TextButton(onPressed: () {}, child: const Text("Logout ")),
+          TextButton(onPressed: () {}, child: const Text("Start Game "))
+        ],
+      )),
+    ));
   }
 }
