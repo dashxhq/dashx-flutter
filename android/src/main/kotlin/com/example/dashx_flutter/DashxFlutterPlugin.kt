@@ -21,12 +21,15 @@ class DashxFlutterPlugin: FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(this)
   }
 
+
+  /// not required.
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
+//    if (call.method == "getDashxInitailization") {
+//
+////      result.success("Android ${android.os.Build.VERSION.RELEASE}")
+//    } else {
       result.notImplemented()
-    }
+//    }
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

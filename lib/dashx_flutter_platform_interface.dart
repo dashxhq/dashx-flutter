@@ -1,29 +1,30 @@
+import 'package:dashx_flutter/dashx_flutter.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'dashx_flutter_method_channel.dart';
 
-abstract class DashxFlutterPlatform extends PlatformInterface {
-  /// Constructs a DashxFlutterPlatform.
-  DashxFlutterPlatform() : super(token: _token);
+abstract class DashXPlatform extends PlatformInterface {
+  /// Constructs a DashXPlatform.
+  DashXPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static DashxFlutterPlatform _instance = MethodChannelDashxFlutter();
+  static DashXPlatform _instance = MethodChannelDashxFlutter();
 
-  /// The default instance of [DashxFlutterPlatform] to use.
+  /// The default instance of [DashXPlatform] to use.
   ///
   /// Defaults to [MethodChannelDashxFlutter].
-  static DashxFlutterPlatform get instance => _instance;
+  static DashXPlatform get instance => _instance;
   
   /// Platform-specific implementations should set this with their own
-  /// platform-specific class that extends [DashxFlutterPlatform] when
+  /// platform-specific class that extends [DashXPlatform] when
   /// they register themselves.
-  static set instance(DashxFlutterPlatform instance) {
+  static set instance(DashXPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
+  Future<DashX> getDashX() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

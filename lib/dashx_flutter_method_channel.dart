@@ -1,17 +1,19 @@
+import 'package:dashx_flutter/dashx_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'dashx_flutter_platform_interface.dart';
 
-/// An implementation of [DashxFlutterPlatform] that uses method channels.
-class MethodChannelDashxFlutter extends DashxFlutterPlatform {
+
+/// An implementation of [DashXPlatform] that uses method channels.
+class MethodChannelDashxFlutter extends DashXPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   final methodChannel = const MethodChannel('dashx_flutter');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<DashX> getDashX() async {
+  DashX? dashx = await methodChannel.invokeMethod<DashX>('getDashxInitailization');
+    return dashx!;
   }
 }
