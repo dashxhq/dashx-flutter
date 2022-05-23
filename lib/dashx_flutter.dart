@@ -10,14 +10,14 @@ class DashXPlugin {
 }
 
 class DashX {
-  final String? baseUri;
   final String? publicKey;
+  final String? baseUri;
   final String? targetEnvironment;
 
   DashX({
-    required this.baseUri,
     required this.publicKey,
-    required this.targetEnvironment,
+    this.baseUri,
+    this.targetEnvironment,
   });
 
   Future<DashX> getDashX() {
@@ -26,7 +26,7 @@ class DashX {
 
   Future<String> getUuid() async {
     String? uuidValue;
-    
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('uuid') != null) {
       uuidValue = prefs.getString('uuid');

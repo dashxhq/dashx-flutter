@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
       dashxFlutterPlugin;
       uid = await dx.getUuid().then((value) => value);
     } on PlatformException {
-      message = 'Failed to get platform version.';
+      message = 'Failed set values.';
     }
 
     // If the widget was removed from the tree while the asynchronous platform
