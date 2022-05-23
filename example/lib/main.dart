@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () {
                 dx.identify();
               },
-              child: const Text("Register ")),
+              child: const Text("Identify ")),
           TextButton(onPressed: () {}, child: const Text("Update Profile ")),
           TextButton(onPressed: () {}, child: const Text("Logout ")),
           TextButton(onPressed: () {}, child: const Text("Start Game "))
