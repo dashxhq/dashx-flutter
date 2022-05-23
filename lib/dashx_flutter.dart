@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:graphql/client.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'dashx_flutter_platform_interface.dart';
@@ -43,8 +42,8 @@ class DashX {
       'x-target-environment': targetEnvironment!,
       'x-public-key': publicKey!
     });
-    
-/// only uuid is required for identifyAccount
+
+    /// only uuid is required for identifyAccount
     String identifyAccount(String id) {
       return '''
             mutation{
@@ -59,7 +58,7 @@ class DashX {
     }
 
     /// get temorary directory for hive to store data
-    Directory tempDir = await getTemporaryDirectory();
+    Directory tempDir = Directory.systemTemp;
 
     /// initialize Hive and wrap the default box in a HiveStore
     HiveStore.init(onPath: tempDir.path);
