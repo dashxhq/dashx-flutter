@@ -17,6 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String message = 'Unknown';
+  String uid = '';
   DashXPlugin dashxFlutterPlugin = DashXPlugin();
   DashX dx = DashX(
     publicKey: '',
@@ -37,6 +38,7 @@ class _MyAppState extends State<MyApp> {
 
     try {
       dashxFlutterPlugin;
+      uid = await dx.getUuid().then((value) => value);
     } on PlatformException {
       message = 'Failed to get platform version.';
     }
@@ -59,6 +61,11 @@ class _MyAppState extends State<MyApp> {
       body: Center(
           child: Column(
         children: [
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('Anonymous UID'),
+          ),
+          Text(uid.toString()),
           TextButton(
               onPressed: () {
                 dx.identify();
