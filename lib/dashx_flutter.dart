@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:graphql/client.dart';
 import 'package:path_provider/path_provider.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import 'dashx_flutter_platform_interface.dart';
 
 class DashXPlugin {
@@ -22,6 +22,19 @@ class DashX {
 
   Future<DashX> getDashX() {
     return DashXPlatform.instance.getDashX();
+  }
+
+  Future<String> getUuid() async {
+    String? uuidValue;
+    
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('uuid') != null) {
+      uuidValue = prefs.getString('uuid');
+    } else {
+      uuidValue = const Uuid().v4();
+      prefs.setString('uuid', uuidValue);
+    }
+    return uuidValue!;
   }
 
   Future<void> identify() async {
