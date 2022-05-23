@@ -43,16 +43,16 @@ class DashX {
       'x-target-environment': targetEnvironment!,
       'x-public-key': publicKey!
     });
-
-    String identifyAccount(String id, String email) {
+    
+/// only uuid is required for identifyAccount
+    String identifyAccount(String id) {
       return '''
             mutation{
               identifyAccount(input: {
-                anonymousUid:"$id",
-                email: "$email"
+                anonymousUid:"$id"
               }) {
                 id
-                email
+
                 }
                 }
                 ''';
@@ -66,11 +66,11 @@ class DashX {
     final store = await HiveStore.open(path: tempDir.path);
 
     ///initializing GraphQLConfig
-    GraphQLClient _client =
+    GraphQLClient client =
         GraphQLClient(link: httpLink, cache: GraphQLCache(store: store));
-    QueryResult result = await _client.mutate(
+    QueryResult result = await client.mutate(
       MutationOptions(
-        document: gql(identifyAccount('<YOUR_UUID4>', '<YOUR_EMAIL>')),
+        document: gql(identifyAccount('<YOUR_UUID4>')),
       ),
     );
     if (result.hasException) {
