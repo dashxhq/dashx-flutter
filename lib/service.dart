@@ -29,6 +29,6 @@ void getRequest(String targetEnvironment,String publicKey, String baseUri,String
   if (result.hasException) {
     debugPrint(result.exception?.graphqlErrors[0].message);
   } else if (result.data != null) {
-    debugPrint(result.data.toString());
+    debugPrint("data: ${result.data}");
   }
 }

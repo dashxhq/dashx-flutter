@@ -16,12 +16,11 @@ String trackEventClick(String id) {
               trackEvent(input:{
                 event: "Clicked Button",
                  data: {gameName: "Tetris"}
-                 accountUid:"$id"}) {
+                 accountAnonymousUid:"$id"}) {
                   id
                   }
                   }
                   ''';
 }
-
 
 
