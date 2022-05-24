@@ -1,4 +1,3 @@
-
 String identifyAccount(String id) {
   return '''
             mutation{
@@ -10,17 +9,15 @@ String identifyAccount(String id) {
                 ''';
 }
 
-String trackEventClick(String id) {
+String trackEvent(String id, String event, {required String gameName}) {
   return '''
             mutation {
               trackEvent(input:{
-                event: "Clicked Button",
-                 data: {gameName: "Tetris"}
+                event: "$event",
+                 data: {gameName: "$gameName"}
                  accountAnonymousUid:"$id"}) {
                   id
                   }
                   }
                   ''';
 }
-
-

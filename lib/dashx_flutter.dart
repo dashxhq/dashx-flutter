@@ -42,9 +42,9 @@ class DashX {
         targetEnvironment!, publicKey!, baseUri!, identifyAccount(uuidValue!));
   }
 
-  Future<void> trackEvent() async {
-    getRequest(
-        targetEnvironment!, publicKey!, baseUri!,  trackEventClick(uuidValue!));
+  Future<void> track(String event, {required String gameName}) async {
+    getRequest(targetEnvironment!, publicKey!, baseUri!,
+        trackEvent(uuidValue!, event, gameName: gameName));
   }
 
   Future<void> update() async {}
