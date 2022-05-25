@@ -26,6 +26,7 @@ class DashX {
   }
 
   String? uuidValue;
+  String? deviceToken;
   Future<String> getUuid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('uuid') != null) {
@@ -53,7 +54,7 @@ class DashX {
         setIdentityAccount(uid, token));
   }
 
-  Future<void> subscribe(String uid, String value) async {
+  Future<void> subscribe() async {
     String device = "WEB";
     if (Platform.isAndroid) {
       device = "ANDROID";
@@ -61,7 +62,7 @@ class DashX {
       device = "IOS";
     }
     getRequest(targetEnvironment!, publicKey!, baseUri!,
-        subscribeContact(uid, value, device));
+        subscribeContact(uuidValue!, deviceToken!, device));
   }
 
   Future<void> update() async {}
