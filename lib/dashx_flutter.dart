@@ -2,6 +2,7 @@ import 'package:dashx_flutter/service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'dashx_flutter_platform_interface.dart';
+import 'dart:io' show Platform;
 
 import 'mutation_strings.dart';
 
@@ -42,9 +43,25 @@ class DashX {
         targetEnvironment!, publicKey!, baseUri!, identifyAccount(uuidValue!));
   }
 
-  Future<void> track(String event, {required String gameName}) async {
+  Future<void> track(String event, Map<String, dynamic> jsonData) async {
     getRequest(targetEnvironment!, publicKey!, baseUri!,
-        trackEvent(uuidValue!, event, gameName: gameName));
+        trackEvent(uuidValue!, event, jsonData));
+  }
+
+  Future<void> setIdentity(String uid, String token) async {
+    getRequest(targetEnvironment!, publicKey!, baseUri!,
+        setIdentityAccount(uid, token));
+  }
+
+  Future<void> subscribe(String uid, String value) async {
+    String device = "WEB";
+    if (Platform.isAndroid) {
+      device = "ANDROID";
+    } else if (Platform.isIOS) {
+      device = "IOS";
+    }
+    getRequest(targetEnvironment!, publicKey!, baseUri!,
+        subscribeContact(uid, value, device));
   }
 
   Future<void> update() async {}
