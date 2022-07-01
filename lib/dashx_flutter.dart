@@ -32,6 +32,8 @@ class DashX {
   Response? responseMessage;
   String? uuidValue;
   String? deviceToken;
+  // all http request is happening using this url only
+  String urlString = 'https://node.dashxdemo.com';
   Future<String> getUuid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('uuid') != null) {
@@ -50,7 +52,7 @@ class DashX {
   }
 
   Future<void> register(Map<String, dynamic> body) async {
-    String url = 'https://node.dashxdemo.com/register';
+    String url = urlString + '/register';
     Uri uri = Uri.parse(url);
 
     Response response = await http.post(uri,
@@ -58,8 +60,19 @@ class DashX {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(body));
-        print(response.body);
-      responseMessage = response;
+    responseMessage = response;
+  }
+
+  Future<void> login(Map<String, dynamic> body) async {
+    String url = urlString + '/login';
+    Uri uri = Uri.parse(url);
+
+    Response response = await http.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(body));
+    responseMessage = response;
   }
 
 // use this function to check responses of all http requests.
