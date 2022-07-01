@@ -52,7 +52,7 @@ class DashX {
   }
 
   Future<void> register(Map<String, dynamic> body) async {
-    String url = urlString + '/register';
+    String url = '$urlString/register';
     Uri uri = Uri.parse(url);
 
     Response response = await http.post(uri,
@@ -64,7 +64,7 @@ class DashX {
   }
 
   Future<void> login(Map<String, dynamic> body) async {
-    String url = urlString + '/login';
+    String url = '$urlString/login';
     Uri uri = Uri.parse(url);
 
     Response response = await http.post(uri,
