@@ -32,8 +32,8 @@ class DashX {
   Response? responseMessage;
   String? uuidValue;
   String? deviceToken;
-  // all http request is happening using this url only
-  String urlString = 'https://node.dashxdemo.com';
+  String? device;
+
   Future<String> getUuid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('uuid') != null) {
@@ -44,6 +44,24 @@ class DashX {
     }
     print(uuidValue);
     return uuidValue!;
+  }
+
+  Future<void> initialize() async {
+    await getUuid();
+    device = "Unknown";
+    if (Platform.isAndroid) {
+      device = "ANDROID";
+    } else if (Platform.isIOS) {
+      device = "IOS";
+    }
+    Map<String, String?> config = {
+      'publicKey': publicKey,
+      'baseUri': baseUri,
+      'targetEnvironment': targetEnvironment,
+      'uid': uuidValue,
+      'targetInstallation': device
+    };
+    DashXPlatform.instance.setConfig(config);
   }
 
   Future<void> identify() async {
@@ -94,14 +112,8 @@ class DashX {
   }
 
   Future<void> subscribe() async {
-    String device = "WEB";
-    if (Platform.isAndroid) {
-      device = "ANDROID";
-    } else if (Platform.isIOS) {
-      device = "IOS";
-    }
     getRequest(targetEnvironment!, publicKey!, baseUri!,
-        subscribeContact(uuidValue!, deviceToken!, device));
+        subscribeContact(uuidValue!, deviceToken!, device!));
   }
 
   Future<void> update() async {}
