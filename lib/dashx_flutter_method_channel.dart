@@ -11,9 +11,8 @@ class MethodChannelDashxFlutter extends DashXPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('dashx_flutter');
 
-  @override
-  Future<DashX> getDashX() async {
-  DashX? dashx = await methodChannel.invokeMethod<DashX>('getDashxInitailization');
-    return dashx!;
+
+  Future<void> setConfig(Map<String, String?> config)async {
+    return methodChannel.invokeMethod('setConfig', config);
   }
 }

@@ -27,4 +27,8 @@ abstract class DashXPlatform extends PlatformInterface {
   Future<DashX> getDashX() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
+  Future<void> setConfig(Map<String, String?> config)async {
+    throw UnimplementedError('setConfig() has not been implemented.');
+  }
 }
