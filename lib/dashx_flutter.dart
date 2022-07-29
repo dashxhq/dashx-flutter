@@ -36,9 +36,6 @@ class DashX {
     // all http request is happening using this url only
   String urlString = 'https://node.dashxdemo.com';
 
-  // all http request is happening using this url only
-  String urlString = 'https://node.dashxdemo.com';
-
   Future<String> getUuid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('uuid') != null) {

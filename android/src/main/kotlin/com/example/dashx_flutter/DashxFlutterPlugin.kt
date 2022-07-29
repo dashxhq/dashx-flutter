@@ -41,14 +41,14 @@ class DashxFlutterPlugin : FlutterPlugin, MethodCallHandler {
             baseUri = dxConfig!!["baseUrl"] as String
             targetEnvironment = dxConfig!!["targetEnviroment"] as String
             uid = dxConfig!!["uid"] as String
-            targetInstallation = dxConfig["targetInstallation"] as String
+            targetInstallation = dxConfig!!["targetInstallation"] as String
 // passing it to client
             dashXClient = DashXClient(applicationContext!!,
                 publicKey!!,
                 baseUri,
                 targetEnvironment,
                 targetInstallation)
-            dashXClient.track("button click", {})
+            dashXClient!!.track("button click", {})
             result.success("{}")
         } else {
             result.notImplemented()
