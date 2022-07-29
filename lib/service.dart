@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/rendering.dart';
 import 'package:graphql/client.dart';
 
-void getRequest(String targetEnvironment,String publicKey, String baseUri,String doc) async {
-
+void getRequest(String targetEnvironment, String publicKey, String baseUri,
+    String doc) async {
   final HttpLink httpLink = HttpLink(baseUri, defaultHeaders: {
     'content-type': 'application/json',
     'x-target-environment': targetEnvironment,
@@ -23,7 +23,7 @@ void getRequest(String targetEnvironment,String publicKey, String baseUri,String
       GraphQLClient(link: httpLink, cache: GraphQLCache(store: store));
   QueryResult result = await client.mutate(
     MutationOptions(
-      document: gql( doc),
+      document: gql(doc),
     ),
   );
   if (result.hasException) {

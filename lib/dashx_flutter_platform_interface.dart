@@ -15,7 +15,7 @@ abstract class DashXPlatform extends PlatformInterface {
   ///
   /// Defaults to [MethodChannelDashxFlutter].
   static DashXPlatform get instance => _instance;
-  
+
   /// Platform-specific implementations should set this with their own
   /// platform-specific class that extends [DashXPlatform] when
   /// they register themselves.
@@ -28,7 +28,7 @@ abstract class DashXPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<void> setConfig(Map<String, String?> config)async {
+  Future<void> setConfig(Map<String, String?> config) async {
     throw UnimplementedError('setConfig() has not been implemented.');
   }
 }
