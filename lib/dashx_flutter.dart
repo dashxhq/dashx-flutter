@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:dashx_flutter/service.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'dashx_flutter_platform_interface.dart';
 import 'dart:io' show Platform;
+import 'package:http/http.dart' as http;
 
 import 'mutation_strings.dart';
 
@@ -25,9 +29,12 @@ class DashX {
     return DashXPlatform.instance.getDashX();
   }
 
+  Response? responseMessage;
   String? uuidValue;
   String? deviceToken;
   String? device;
+    // all http request is happening using this url only
+  String urlString = 'https://node.dashxdemo.com';
 
   // all http request is happening using this url only
   String urlString = 'https://node.dashxdemo.com';
@@ -65,6 +72,38 @@ class DashX {
   Future<void> identify() async {
     getRequest(
         targetEnvironment!, publicKey!, baseUri!, identifyAccount(uuidValue!));
+  }
+
+  Future<void> register(Map<String, dynamic> body) async {
+    String url = '$urlString/register';
+    Uri uri = Uri.parse(url);
+
+    Response response = await http.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(body));
+    responseMessage = response;
+  }
+
+  Future<void> login(Map<String, dynamic> body) async {
+    String url = '$urlString/login';
+    Uri uri = Uri.parse(url);
+
+    Response response = await http.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(body));
+    responseMessage = response;
+  }
+
+// use this function to check responses of all http requests.
+  Response? response() {
+    if (responseMessage != null) {
+      responseMessage;
+    }
+    return null;
   }
 
   Future<void> track(String event, Map<String, dynamic> jsonData) async {
