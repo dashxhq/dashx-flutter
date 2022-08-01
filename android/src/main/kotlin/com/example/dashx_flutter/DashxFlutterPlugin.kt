@@ -37,19 +37,26 @@ class DashxFlutterPlugin : FlutterPlugin, MethodCallHandler {
         if (call.method == "setConfig") {
             dxConfig = call.arguments as HashMap<String, String?>
 // set configuration related values
-            publicKey = dxConfig!!["publicKey"] as String
-            baseUri = dxConfig!!["baseUrl"] as String
-            targetEnvironment = dxConfig!!["targetEnviroment"] as String
-            uid = dxConfig!!["uid"] as String
-            targetInstallation = dxConfig!!["targetInstallation"] as String
+            publicKey = dxConfig!!["publicKey"] as String?
+            baseUri = dxConfig!!["baseUrl"] as String?
+            targetEnvironment = dxConfig!!["targetEnviroment"] as String?
+            uid = dxConfig!!["uid"] as String?
+            targetInstallation = dxConfig!!["targetInstallation"] as String?
 // passing it to client
             dashXClient = DashXClient(applicationContext!!,
                 publicKey!!,
                 baseUri,
                 targetEnvironment,
                 targetInstallation)
-            dashXClient!!.track("button click", {})
-            result.success("{}")
+
+
+try{
+
+     dashXClient!!.track("button click", hashMapOf("Clicked Button" to "gameName"))
+} catch(e : Exception){
+    print(e.stackTrace)
+}
+             result.success("track sent")
         } else {
             result.notImplemented()
         }

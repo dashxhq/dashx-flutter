@@ -1,4 +1,3 @@
-import 'package:dashx_flutter/dashx_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +9,7 @@ class MethodChannelDashxFlutter extends DashXPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('dashx_flutter');
 
+  @override
   Future<void> setConfig(Map<String, String?> config) async {
     return methodChannel.invokeMethod('setConfig', config);
   }
